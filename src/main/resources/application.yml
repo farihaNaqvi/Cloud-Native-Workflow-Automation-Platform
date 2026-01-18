@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: cloud-workflow-platform
+server:
+  port: 8080
