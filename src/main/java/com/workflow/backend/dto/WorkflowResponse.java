@@ -1,14 +1,14 @@
-package com.workflow.backend.model;
+package com.workflow.backend.dto;
 
 import java.util.UUID;
 
-public class Workflow {
+public class WorkflowResponse {
 
     private UUID id;
     private String name;
-    private WorkflowStatus status;
+    private String status;
 
-    public Workflow(UUID id, String name, WorkflowStatus status) {
+    public WorkflowResponse(UUID id, String name, String status) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -22,11 +22,7 @@ public class Workflow {
         return name;
     }
 
-    public WorkflowStatus getStatus() {
+    public String getStatus() {
         return status;
-    }
-
-    public void setStatus(WorkflowStatus status) {
-        this.status = status;
     }
 }
