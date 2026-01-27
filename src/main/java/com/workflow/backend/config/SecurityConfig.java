@@ -14,12 +14,14 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/health",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/h2-console/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -28,3 +30,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+

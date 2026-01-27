@@ -1,17 +1,26 @@
 package com.workflow.backend.model;
 
+import jakarta.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "workflows")
 public class Workflow {
 
+    @Id
+    @GeneratedValue
     private UUID id;
+
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private WorkflowStatus status;
 
-    public Workflow(UUID id, String name, WorkflowStatus status) {
-        this.id = id;
+    protected Workflow() {}
+
+    public Workflow(String name) {
         this.name = name;
-        this.status = status;
+        this.status = WorkflowStatus.CREATED;
     }
 
     public UUID getId() {
@@ -29,4 +38,5 @@ public class Workflow {
     public void setStatus(WorkflowStatus status) {
         this.status = status;
     }
+
 }
