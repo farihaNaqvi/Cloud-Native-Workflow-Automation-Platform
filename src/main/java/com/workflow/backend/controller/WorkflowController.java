@@ -1,6 +1,7 @@
 package com.workflow.backend.controller;
 
 import com.workflow.backend.dto.CreateWorkflowRequest;
+import com.workflow.backend.dto.WorkflowRequest;
 import com.workflow.backend.dto.WorkflowResponse;
 import com.workflow.backend.model.Workflow;
 import com.workflow.backend.service.WorkflowService;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/workflows")
@@ -23,13 +23,6 @@ public class WorkflowController {
         this.workflowService = workflowService;
     }
 
-    @PostMapping
-    public ResponseEntity<WorkflowResponse> create(
-            @Valid @RequestBody CreateWorkflowRequest request) {
-
-        Workflow workflow = workflowService.createWorkflow(request.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(map(workflow));
-    }
 
     @PostMapping("/{id}/start")
     public ResponseEntity<WorkflowResponse> start(@PathVariable UUID id) {
@@ -51,6 +44,14 @@ public class WorkflowController {
         );
     }
 
+    @PostMapping
+    public ResponseEntity<WorkflowResponse> create(
+            @Valid @RequestBody WorkflowRequest request) {
+
+        Workflow workflow = workflowService.create(request.getName());
+        return ResponseEntity.ok(mapToResponse(workflow));
+    }
+
     private WorkflowResponse map(Workflow workflow) {
         return new WorkflowResponse(
                 workflow.getId(),
@@ -58,4 +59,12 @@ public class WorkflowController {
                 workflow.getStatus().name()
         );
     }
+    private WorkflowResponse mapToResponse(Workflow workflow) {
+        return new WorkflowResponse(
+                workflow.getId(),
+                workflow.getName(),
+                workflow.getStatus().name()
+        );
+    }
+
 }

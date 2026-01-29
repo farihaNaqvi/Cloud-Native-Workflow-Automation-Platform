@@ -28,6 +28,11 @@ public class WorkflowService {
         return repository.save(new Workflow(name));
     }
 
+    public Workflow create(String name) {
+        Workflow workflow = new Workflow(name);
+        return repository.save(workflow);
+    }
+
     public Workflow startWorkflow(UUID id) {
         log.info("Starting workflow id={}", id);
         Workflow workflow = repository.findById(id)
