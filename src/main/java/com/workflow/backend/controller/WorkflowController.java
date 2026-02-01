@@ -45,10 +45,15 @@ public class WorkflowController {
     }
 
     @PostMapping
-    public ResponseEntity<WorkflowResponse> create(
-            @Valid @RequestBody WorkflowRequest request) {
-
+    public ResponseEntity<WorkflowResponse> create(@Valid @RequestBody WorkflowRequest request) {
         Workflow workflow = workflowService.create(request.getName());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(mapToResponse(workflow));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WorkflowResponse> getById(@PathVariable UUID id) {
+        Workflow workflow = workflowService.getById(id);
         return ResponseEntity.ok(mapToResponse(workflow));
     }
 

@@ -54,4 +54,10 @@ public class WorkflowService {
     public List<Workflow> getAllWorkflows() {
         return repository.findAll();
     }
+
+    public Workflow getById(UUID id) {
+        log.info("Fetching workflow with id={}", id);
+        return repository.findById(id)
+                .orElseThrow(() -> new WorkflowNotFoundException(id));
+    }
 }
