@@ -75,13 +75,13 @@ State transitions are strictly controlled through dedicated APIs.
 
 ## 🔌 API Endpoints
 ### Workflow APIs
-| **Method** | **Endpoint** | **Description** |
-    | :--- |:-------------|:----------------|
- | POST | /api/workflows | Create a new workflow |
-| GET | /api/workflows | Get all workflows |
-| GET | /api/workflows/{id} | Get workflow by ID |
-| PUT | /api/workflows/{id}/start | Start a workflow |
-| PUT | /api/workflows/{id}/complete | Complete a workflow |
+| Method | Endpoint                 | Description                   |
+|--------|--------------------------|-------------------------------|
+| POST   | /api/workflows           | Create a new workflow         |
+| GET    | /api/workflows           | Get all workflows             |
+| GET    | /api/workflows/{id}      | Get workflow by ID            |
+| PUT    | /api/workflows/{id}/start | Start a workflow             |
+| PUT    | /api/workflows/{id}/complete | Complete a workflow       |
 
 ## 📄 Sample Requests
 ### Create Workflow
