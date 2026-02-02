@@ -24,14 +24,16 @@ public class WorkflowController {
     }
 
 
-    @PostMapping("/{id}/start")
+    @PutMapping("/{id}/start")
     public ResponseEntity<WorkflowResponse> start(@PathVariable UUID id) {
-        return ResponseEntity.ok(map(workflowService.startWorkflow(id)));
+        Workflow workflow = workflowService.startWorkflow(id);
+        return ResponseEntity.ok(mapToResponse(workflow));
     }
 
-    @PostMapping("/{id}/complete")
+    @PutMapping("/{id}/complete")
     public ResponseEntity<WorkflowResponse> complete(@PathVariable UUID id) {
-        return ResponseEntity.ok(map(workflowService.completeWorkflow(id)));
+        Workflow workflow = workflowService.completeWorkflow(id);
+        return ResponseEntity.ok(mapToResponse(workflow));
     }
 
     @GetMapping
