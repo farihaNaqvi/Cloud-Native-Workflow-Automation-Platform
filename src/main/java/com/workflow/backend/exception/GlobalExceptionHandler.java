@@ -14,32 +14,44 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(WorkflowNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleWorkflowNotFound(WorkflowNotFoundException ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(404, ex.getMessage()));
+    public ResponseEntity<Map<String, Object>> handleWorkflowNotFound(
+            WorkflowNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of(
+                        "error", "WORKFLOW_NOT_FOUND",
+                        "message", ex.getMessage()
+                )
+        );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, Object>> handleValidation(
+            MethodArgumentNotValidException ex) {
 
-        String errorMessage = ex.getBindingResult()
+        String message = ex.getBindingResult()
                 .getFieldErrors()
-                .stream()
-                .map(err -> err.getField() + ": " + err.getDefaultMessage())
-                .findFirst()
-                .orElse("Validation failed");
+                .get(0)
+                .getDefaultMessage();
 
-        return ResponseEntity
-                .badRequest()
-                .body(new ErrorResponse(400, errorMessage));
+        return ResponseEntity.badRequest().body(
+                Map.of(
+                        "error", "VALIDATION_ERROR",
+                        "message", message
+                )
+        );
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(500, "Internal server error"));
+    public ResponseEntity<Map<String, Object>> handleGeneric(
+            Exception ex) {
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                Map.of(
+                        "error", "INTERNAL_ERROR",
+                        "message", "Something went wrong"
+                )
+        );
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
