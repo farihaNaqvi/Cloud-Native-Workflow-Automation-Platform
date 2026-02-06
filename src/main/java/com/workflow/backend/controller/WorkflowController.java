@@ -6,6 +6,9 @@ import com.workflow.backend.dto.WorkflowResponse;
 import com.workflow.backend.model.Workflow;
 import com.workflow.backend.service.WorkflowService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/workflows")
+@RequestMapping("/api/v1/workflows")
 public class WorkflowController {
 
     private final WorkflowService workflowService;
@@ -73,6 +76,17 @@ public class WorkflowController {
                 workflow.getStatus().name()
         );
     }
+
+    @GetMapping
+    public ResponseEntity<Page<WorkflowResponse>> getAll(
+            @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
+
+        return ResponseEntity.ok(
+                workflowService.getAll(pageable)
+                        .map(this::mapToResponse)
+        );
+    }
+
 
 }
 //http://localhost:8080/swagger-ui.html

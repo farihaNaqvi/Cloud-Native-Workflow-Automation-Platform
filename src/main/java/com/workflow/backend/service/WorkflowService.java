@@ -3,6 +3,8 @@ package com.workflow.backend.service;
 import com.workflow.backend.model.Workflow;
 import com.workflow.backend.model.WorkflowStatus;
 import com.workflow.backend.repository.WorkflowRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -60,4 +62,9 @@ public class WorkflowService {
         return repository.findById(id)
                 .orElseThrow(() -> new WorkflowNotFoundException(id));
     }
+
+    public Page<Workflow> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
 }
