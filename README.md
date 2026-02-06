@@ -78,10 +78,30 @@ State transitions are strictly controlled through dedicated APIs.
 | Method | Endpoint                 | Description                   |
 |--------|--------------------------|-------------------------------|
 | POST   | /api/workflows           | Create a new workflow         |
-| GET    | /api/workflows           | Get all workflows             |
+| GET    | /api/workflows           | Get workflows (paginated)     |
 | GET    | /api/workflows/{id}      | Get workflow by ID            |
 | PUT    | /api/workflows/{id}/start | Start a workflow             |
 | PUT    | /api/workflows/{id}/complete | Complete a workflow       |
+
+### Pagination Support
+
+The `GET /api/workflows` endpoint supports pagination using query parameters.
+
+**Query Parameters:**
+- `page` → Page number (0-based)
+- `size` → Number of records per page
+- `sort` → Sorting field and direction
+
+**Example:**
+```http request
+GET /api/workflows?page=0&size=5&sort=createdAt,desc
+```
+
+**Response includes:**
+- List of workflows
+- Total elements
+- Total pages
+- Current page number
 
 ## 📄 Sample Requests
 ### Create Workflow
@@ -153,6 +173,22 @@ Swagger UI:
 http://localhost:8080/swagger-ui.html
 ```
 
+### Pagination Testing
+
+Pagination can be tested by passing query parameters:
+
+- Page 0, size 5:
+
+```http request
+GET /api/workflows?page=0&size=5
+```
+- Page 1, size 10:
+```http request
+GET /api/workflows?page=1&size=10
+```
+
+Swagger UI automatically exposes pagination parameters for testing.
+
 ## ▶️ Running the Application
 ```bash
 mvn clean install
@@ -166,7 +202,7 @@ http://localhost:8080
 
 ## 🛠️ Future Enhancements
 
-- Pagination and filtering
+- Filtering and sorting support
 - Role-based authorization
 - Audit logs for workflow state changes
 - Async workflow execution 
