@@ -1,12 +1,13 @@
 # 🧩 Cloud Workflow Platform (Backend)
 
-A Spring Boot–based backend application for managing and executing workflows with a well-defined lifecycle.
-Designed using RESTful principles, layered architecture, and production-ready best practices.
+A Spring Boot–based backend application for managing and executing workflows with a well-defined lifecycle. Designed using RESTful principles, layered architecture, and production-ready best practices.
 
 ## 🚀 Overview
 
-The **Cloud Workflow Platform** provides APIs to create, manage, and track workflows through different lifecycle stages such as **CREATED**, **RUNNING**, and **COMPLETED**. 
-It demonstrates real-world backend concepts including validation, exception handling, persistence, security, and API documentation.
+This project is a backend workflow management system built using Spring Boot.It demonstrates real-world backend engineering practices such as layered architecture, state management, pagination, security, and API documentation.
+
+The system allows workflows to be created, executed, and tracked through a defined lifecycle using RESTful APIs.
+
 
 ## ✨ Features
 
